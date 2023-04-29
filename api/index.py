@@ -18,11 +18,13 @@ def parse_args():
     parser.add_argument('--chat_or_user_name', type=str, help='Name of the chat/user', required=True, default=None)
     parser.add_argument('--chat_option_idx', type=str, help='Index of the chat to be sent after a search',  default=None)
     return parser.parse_args()
-if __name__ == '__main__': 
-    cmd_args = parse_args()
+def send_message(cmd_args: argparse.Namespace):
     login_driver = login_to_messenger(driver, email=cmd_args.email, pw=cmd_args.pw)
     if cmd_args.message_type == 'chat':
-        send_message_to_active_chats(driver, message=cmd_args.message, chat_option_idx=cmd_args.chat_option_idx, search_term=cmd_args.chat_or_user_name)
+        send_message_to_active_chats(driver=login_driver, message=cmd_args.message, chat_option_idx=cmd_args.chat_option_idx, search_term=cmd_args.chat_or_user_name)
     if cmd_args.message_type == 'user':
-        send_message_to_user(driver, message=cmd_args.message, chat_option_idx=cmd_args.chat_option_idx, search_term=cmd_args.chat_or_user_name)
-    logout(driver)
+        send_message_to_user(driver=login_driver, message=cmd_args.message, chat_option_idx=cmd_args.chat_option_idx, search_term=cmd_args.chat_or_user_name)
+    logout(driver=login_driver)
+if __name__ == '__main__': 
+    cmd_args = parse_args()
+    send_message(cmd_args)
