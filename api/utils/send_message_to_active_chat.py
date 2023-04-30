@@ -12,13 +12,13 @@ def send_message_to_active_chats(
     thread_container_xpath = "//div[@id='threadlist_rows']"
     send_btn_xpath = '//button[@type="submit][value="Send"]'
     message_input_xpath = "//textarea[contains(@data-sigil, 'm-textarea-input')]"
+    thread_options_xpath = "//div[@id='threadlist_rows']/a"
     # search for chat
     search_bar = driver.find_element(By.XPATH, search_bar_x_path)
     search_bar.send_keys(search_term)
     # find active chat threads
     wait_for_element(driver, thread_container_xpath, "Could not find thread container")
-    thread_container = driver.find_element(By.XPATH, thread_container_xpath)
-    thread_options = thread_container.find_elements(By.XPATH, "//a")
+    thread_options = driver.find_elements(By.XPATH, thread_options_xpath)
     thread_el = thread_options[chat_option_idx if chat_option_idx else 0]
     driver.execute_script("arguments[0].click();", thread_el)
     # send message

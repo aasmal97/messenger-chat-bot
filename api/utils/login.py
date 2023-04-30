@@ -17,7 +17,7 @@ def login_to_messenger(driver: webdriver.Chrome, email: str, pw: str, account_na
         password_field = WebDriverWait(driver, 10).until(
             EC.presence_of_element_located((By.XPATH, password_input_xpath))
         )
-        time.sleep(random.randint(1, 3))
+        time.sleep(random.randint(5, 15))
 
     except TimeoutError:
         driver.quit()
@@ -35,7 +35,7 @@ def login_to_messenger(driver: webdriver.Chrome, email: str, pw: str, account_na
             x_path_conditions.append(f"//*[contains(text(),'{account_name}')]")
         # find neccessary elements to know we are logged in
         WebDriverWait(driver, 10).until(EC.presence_of_element_located(tuple(x_path_conditions)))
-        time.sleep(random.randint(1, 3))
+        time.sleep(random.randint(5, 15))
 
     except TimeoutError:
         driver.quit()
