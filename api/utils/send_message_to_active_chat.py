@@ -19,13 +19,11 @@ def send_message_to_active_chats(
     wait_for_element(driver, thread_container_xpath, "Could not find thread container")
     thread_container = driver.find_element(By.XPATH, thread_container_xpath)
     thread_options = thread_container.find_elements(By.XPATH, "//a")
-    if chat_option_idx:
-        thread_options[chat_option_idx].click()
-    else:
-        thread_options[0].click()
+    thread_el = thread_options[chat_option_idx if chat_option_idx else 0]
+    driver.execute_script("arguments[0].click();", thread_el)
     # send message
     wait_for_element(driver, message_input_xpath, "Could not find message input")
     message_input = driver.find_element(By.XPATH, message_input_xpath)
     message_input.send_keys(message)
-    send_btn_xpath = driver.find_element(By.XPATH, send_btn_xpath)
-    send_btn_xpath.click()
+    send_btn_el = driver.find_element(By.XPATH, send_btn_xpath)
+    driver.execute_script("arguments[0].click();", send_btn_el)

@@ -15,7 +15,7 @@ def send_message_to_user(driver: webdriver.Chrome, search_term: str, message: st
     # wait for new message button
     wait_for_element(driver, new_message_btn_xpath, "Could not find new message button")
     new_message_btn = driver.find_element(By.XPATH, new_message_btn_xpath).parent
-    new_message_btn.click()
+    driver.execute_script("arguments[0].click();", new_message_btn)
     # wait for message form
     wait_for_element(driver, messages_form_xpath, "Could not find message form")
     messages_form = driver.find_element(By.XPATH, messages_form_xpath)
@@ -29,13 +29,12 @@ def send_message_to_user(driver: webdriver.Chrome, search_term: str, message: st
     wait_for_element(driver, to_input_option_xpath, "Could not find 'to:' input options element")
     to_input_options = driver.find_elements(By.XPATH, to_input_option_xpath)
     if len(to_input_option_xpath) <= 0:
-        return driver.quit()
-    if chat_option_idx:
-        to_input_options[chat_option_idx].click()
-    else:
-        to_input_options[0].click()
+        driver.quit()
+        return Exception("No users found for current search term")
+    to_input_option_el = to_input_options[chat_option_idx if chat_option_idx else 0]
+    driver.execute_script("arguments[0].click();", to_input_option_el)
     # wait for send button
     wait_for_element(driver, send_btn_xpath, "Could not find message send button")
     send_btn = driver.find_element(By.XPATH, send_btn_xpath)
-    send_btn.click()
+    driver.execute_script("arguments[0].click();", send_btn)
     return driver

@@ -11,9 +11,10 @@ def logout(driver: webdriver.Chrome):
     # wait for menu anchor element
     wait_for_element(driver, anchor_xpath, "Could not find menu anchor element")
     anchor = driver.find_element(By.XPATH, anchor_xpath)
-    anchor.click()
+    driver.execute_script("arguments[0].click();", anchor)
     # wait for logout button
     wait_for_element(driver, logout_btn_xpath, "Could not find logout button")
     logout_btn = driver.find_element(By.XPATH, logout_btn_xpath)
-    logout_btn.click()
+    driver.execute_script("arguments[0].click();", logout_btn)
+    
     return driver.quit()
