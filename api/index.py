@@ -30,14 +30,14 @@ def send_message(cmd_args: dict):
         send_message_to_active_chats(
             driver=login_driver,
             message=cmd_args["message"],
-            chat_option_idx=cmd_args["chat_option_idx"],
+            chat_option_idx=int(cmd_args["chat_option_idx"]),
             search_term=cmd_args["chat_or_user_name"],
         )
     if cmd_args["message_type"] == "user":
         send_message_to_user(
             driver=login_driver,
             message=cmd_args["message"],
-            chat_option_idx=cmd_args["chat_option_idx"],
+            chat_option_idx=int(cmd_args["chat_option_idx"]),
             search_term=cmd_args["chat_or_user_name"],
         )
     logout(driver=login_driver)
