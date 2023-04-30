@@ -1,12 +1,10 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 from utils.wait_for_element import wait_for_element
 from utils.links import messages_link
 
 
-def send_message_to_user(driver: webdriver.Chrome, search_query: str, message: str, chat_option_idx: int | None):
+def send_message_to_user(driver: webdriver.Chrome, search_term: str, message: str, chat_option_idx: int | None = None):
     driver.get(messages_link)
     new_message_btn_xpath = "//a/span[contains(text(),'New Message')]"
     messages_form_xpath = "//form[@id='m-messages-touch-composer-form']"
@@ -26,7 +24,7 @@ def send_message_to_user(driver: webdriver.Chrome, search_query: str, message: s
     # wait for to input
     wait_for_element(driver, to_input_xpath, "Could not find 'to:' input element")
     to_input = messages_form.find_element(By.XPATH, to_input_xpath)
-    to_input.send_keys(search_query)
+    to_input.send_keys(search_term)
     # wait for to input options
     wait_for_element(driver, to_input_option_xpath, "Could not find 'to:' input options element")
     to_input_options = driver.find_elements(By.XPATH, to_input_option_xpath)

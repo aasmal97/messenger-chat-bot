@@ -4,7 +4,9 @@ from utils.links import messages_link
 from utils.wait_for_element import wait_for_element
 
 
-def send_message_to_active_chats(driver: webdriver.Chrome, message: str, search_term: str, optionNum: int | None):
+def send_message_to_active_chats(
+    driver: webdriver.Chrome, message: str, search_term: str, chat_option_idx: int | None = None
+):
     driver.get(messages_link)
     search_bar_x_path = "//input[@placeholder='Search Messenger']"
     thread_container_xpath = "//div[@id='threadlist_rows']"
@@ -17,8 +19,8 @@ def send_message_to_active_chats(driver: webdriver.Chrome, message: str, search_
     wait_for_element(driver, thread_container_xpath, "Could not find thread container")
     thread_container = driver.find_element(By.XPATH, thread_container_xpath)
     thread_options = thread_container.find_elements(By.XPATH, "//a")
-    if optionNum:
-        thread_options[optionNum].click()
+    if chat_option_idx:
+        thread_options[chat_option_idx].click()
     else:
         thread_options[0].click()
     # send message

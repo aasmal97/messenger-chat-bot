@@ -8,7 +8,7 @@ def wait_for_element(driver: webdriver.Chrome, xpath: str, err_message: str):
     try:
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, xpath)))
         # add random wait time to avoid getting blocked by the bot
-        time.sleep(random.randint(1, 3))
+        time.sleep(random.randint(3, 7))
     except TimeoutError:
         driver.quit()
         return Exception(err_message)
