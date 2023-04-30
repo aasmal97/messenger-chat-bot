@@ -6,10 +6,11 @@ from utils.wait_for_element import wait_for_element
 
 def logout(driver: webdriver.Chrome):
     driver.get(home_page)
-    anchor_xpath = "//a[@role='button'][@name='More'][contains(@data-sigil,'menu-link icon')]"
-    logout_btn_xpath = "//a[contains(@data-sigil, 'logout')]"
+    anchor_xpath = "//div[contains(@aria-label, 'Account Controls')][@role='navigation']//*[local-name()='svg'][contains(@aria-label, 'profile')]/ancestor::div[@role='button']"
+    logout_btn_xpath = "//*[contains(text(),'Log Out')]/ancestor::div[@role='button']"
+
     # wait for menu anchor element
-    wait_for_element(driver, anchor_xpath, "Could not find menu anchor element")
+    wait_for_element(driver, anchor_xpath, "Could not find profile anchor element")
     anchor = driver.find_element(By.XPATH, anchor_xpath)
     driver.execute_script("arguments[0].click();", anchor)
     # wait for logout button

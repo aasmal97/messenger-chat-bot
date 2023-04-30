@@ -55,7 +55,7 @@ def send_message_to_active_chats(
         message_input_xpath,
         thread_options_xpath,
     ) = itemgetter(
-        "search_bar_x_path", "thread_container_xpath", "send_btn_xpath", "message_input_xpath", "thread_options_xpath"
+        "search_bar_x_path","search_bar_submit_btn_xpath", "thread_container_xpath", "send_btn_xpath", "message_input_xpath", "thread_options_xpath"
     )(
         ui_templates_xpath_dict[template_used]
     )
